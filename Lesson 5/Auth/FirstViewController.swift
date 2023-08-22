@@ -2,9 +2,7 @@
 //  Lesson 5
 //
 //  Created by Павел Громов on 31.07.2023.
-//
 import UIKit
-
 final class FirstViewController: UIViewController {
     private var label = UILabel()
     private var button = UIButton()
