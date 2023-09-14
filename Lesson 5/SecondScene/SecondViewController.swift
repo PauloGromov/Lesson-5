@@ -2,12 +2,12 @@
 //  Lesson 5
 //
 //  Created by Павел Громов on 31.07.2023.
-//
 import UIKit
 
-class SecondViewController: UIViewController {
+final class SecondViewController: UIViewController {
     private var tableView = UITableView()
     private var personArray: [Person] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -16,8 +16,7 @@ class SecondViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add(sender: )))
         myTableView()
     }
-    
-    //MARK: -- Methods and Actions
+    //MARK: -- Actions
     @objc func add(sender: UIBarButtonItem) {
         let thirdVC = ThirdViewController()
         thirdVC.onSave = { [weak self] person in
@@ -26,7 +25,7 @@ class SecondViewController: UIViewController {
         let navController = UINavigationController(rootViewController: thirdVC)
         present(navController, animated: true, completion: nil)
     }
-    
+    //MARK: - Methods
     private func myTableView() {
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.rowHeight = 80
@@ -43,7 +42,6 @@ class SecondViewController: UIViewController {
         tableView.reloadData()
     }
 }
-
 //MARK: -- extensions
 extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,6 +51,7 @@ extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.idCustomCell, for: indexPath) as? CustomTableViewCell else { return UITableViewCell() }
         let person = personArray[indexPath.row]
         cell.nameLabel.text = person.name
+        cell.dateLabel.text = person.birthdate
         return cell
     }
 }

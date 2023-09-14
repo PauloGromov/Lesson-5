@@ -1,10 +1,10 @@
-//
 //  ThirdViewController.swift
 //  Lesson 5
 //
 //  Created by Павел Громов on 31.07.2023.
 import UIKit
-class ThirdViewController: UIViewController {
+
+final class ThirdViewController: UIViewController {
     private var labelName = UILabel()
     private var textFieldName = UITextField()
     private var labelDate = UILabel()
@@ -19,8 +19,7 @@ class ThirdViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = " 3 VC "
-        view.backgroundColor = .white
+        configure()
         createBarButtonItems()
         createTextFieldName()
         createLabelName()
@@ -29,17 +28,21 @@ class ThirdViewController: UIViewController {
         createDatepicker()
         createLabelAge()
         createTextFieldAge()
-        createAgepicker()
+        createAgePicker()
         createLabelGender()
         createTextFieldGender()
         genderPicker()
     }
     
-    //MARK: -- Create View Elements
+    //MARK: - Create View Elements
+    private func configure() {
+        self.title = " 3 VC "
+        view.backgroundColor = .white
+    }
+    
     private func createBarButtonItems() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(sender: )))
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(save(sender: )))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButton(sender: )))
     }
     
     private func createLabelName() {
@@ -58,7 +61,6 @@ class ThirdViewController: UIViewController {
         view.addSubview(textFieldName)
     }
     
-    // labelDate
     fileprivate func createlabelDate() {
         labelDate = UILabel(frame: CGRect(x: 30, y: 390, width: 50, height: 30))
         labelDate.backgroundColor = .white
@@ -83,16 +85,13 @@ class ThirdViewController: UIViewController {
         return toolBar
     }
     
-    // datePicker
-    @available(iOS 13.4, *)
-    func createDatepicker() {
+    private func createDatepicker() {
         textFieldDate.inputView = pickerDate
         textFieldDate.inputAccessoryView = createToolbar()
         pickerDate.preferredDatePickerStyle = .wheels
         pickerDate.datePickerMode = .date
     }
     
-    // ageLabel
     private func createLabelAge() {
         labelAge = UILabel(frame: CGRect(x: 30, y: 450, width: 50, height: 30))
         labelAge.backgroundColor = .white
@@ -102,7 +101,6 @@ class ThirdViewController: UIViewController {
         labelAge.textColor = .gray
     }
     
-    // ageTextfield
     private func createTextFieldAge() {
         textFieldAge = UITextField(frame: CGRect(x: 30, y: 480, width: 150, height: 30))
         textFieldAge.placeholder = "Введите возраст"
@@ -110,7 +108,6 @@ class ThirdViewController: UIViewController {
         view.addSubview(textFieldAge)
     }
     
-    // AgeToolbar
     private func createAgeToolbar() -> UIToolbar {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
@@ -119,15 +116,13 @@ class ThirdViewController: UIViewController {
         return toolBar
     }
     
-    // AgePicker
-    private func createAgepicker() {
+    private func createAgePicker() {
         textFieldAge.inputView = pickerAge
         textFieldAge.inputAccessoryView = createAgeToolbar()
         pickerAge.dataSource = self
         pickerAge.delegate = self
     }
     
-    // GenderLabel
     private func createLabelGender() {
         labelGander = UILabel(frame: CGRect(x: 30, y: 510, width: 50, height: 30))
         labelGander.backgroundColor = .white
@@ -137,7 +132,6 @@ class ThirdViewController: UIViewController {
         labelGander.textColor = .gray
     }
     
-    // GenderTextField
     private func createTextFieldGender() {
         textFieldGender = UITextField(frame: CGRect(x: 30, y: 540, width: 150, height: 30))
         textFieldGender.placeholder = "Введите возраст"
@@ -145,7 +139,6 @@ class ThirdViewController: UIViewController {
         view.addSubview(textFieldGender)
     }
     
-    // GenderToolbar
     private func createGenderToolBar() -> UIToolbar {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
@@ -154,7 +147,6 @@ class ThirdViewController: UIViewController {
         return toolBar
     }
     
-    // GenderPicker
     private func genderPicker() {
         textFieldGender.inputView = pickerGender
         textFieldGender.inputAccessoryView = createGenderToolBar()
@@ -162,7 +154,7 @@ class ThirdViewController: UIViewController {
         pickerGender.delegate = self
     }
     
-    //MARK: -- Create Actions
+    //MARK: - Create Actions
     
     @objc func cancel(sender: UIBarButtonItem) {
         dismiss(animated: true)
@@ -170,9 +162,12 @@ class ThirdViewController: UIViewController {
     
     var onSave: ((Person) -> Void)?
     
-    @objc func save(sender: UIBarButtonItem) {
+    @objc func saveButton(sender: UIBarButtonItem) {
         let name = textFieldName.text ?? "nil"
-        let birthdate = textFieldDate.text ?? "тут ошибка"
+        let dateFormater = DateFormatter()
+        dateFormater.dateStyle = .medium
+        dateFormater.timeStyle = .none
+        let birthdate = dateFormater.string(from: pickerDate.date)
         let person = Person(name: name, birthdate: birthdate)
         
         if let onSave = onSave {
@@ -203,23 +198,18 @@ class ThirdViewController: UIViewController {
     
 }
 
-//MARK: -- Extensions
+//MARK: - Extensions
 extension ThirdViewController: UITextFieldDelegate {
-    
-    
-    //
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         true
     }
     
-    //
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    
-    //
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

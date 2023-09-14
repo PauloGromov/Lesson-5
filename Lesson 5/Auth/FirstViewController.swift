@@ -3,6 +3,7 @@
 //
 //  Created by Павел Громов on 31.07.2023.
 import UIKit
+
 final class FirstViewController: UIViewController {
     private var label = UILabel()
     private var button = UIButton()
@@ -13,7 +14,7 @@ final class FirstViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        configure()
         createLabel()
         createLabelEmail()
         createTextFieldEmail()
@@ -88,6 +89,11 @@ final class FirstViewController: UIViewController {
         view.addSubview(button)
     }
 
+//MARK: -- Methods
+    private func configure() {
+        view.backgroundColor = .white
+    }
+    
 //MARK: -- Create Actions
     @objc func tapButton(sender: UIButton) {
         let secondVC = SecondViewController()
@@ -95,7 +101,6 @@ final class FirstViewController: UIViewController {
     }
     
     @objc func eyeButtonTapped() {
-        // Измените состояние isSecureTextEntry, чтобы показать или скрыть текст пароля
         textFieldPassword.isSecureTextEntry.toggle()
     }
 }
