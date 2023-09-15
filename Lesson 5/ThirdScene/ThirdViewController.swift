@@ -173,7 +173,6 @@ final class ThirdViewController: UIViewController {
         if let onSave = onSave {
             onSave(person)
         }
-        
         dismiss(animated: true)
     }
     

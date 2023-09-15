@@ -14,7 +14,7 @@ final class SecondViewController: UIViewController {
         title = "Birthday"
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(add(sender: )))
-        myTableView()
+        createCustomTableView()
     }
     //MARK: -- Actions
     @objc func add(sender: UIBarButtonItem) {
@@ -26,7 +26,7 @@ final class SecondViewController: UIViewController {
         present(navController, animated: true, completion: nil)
     }
     //MARK: - Methods
-    private func myTableView() {
+    private func createCustomTableView() {
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.rowHeight = 80
         tableView.dataSource = self
@@ -52,6 +52,7 @@ extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
         let person = personArray[indexPath.row]
         cell.nameLabel.text = person.name
         cell.dateLabel.text = person.birthdate
+        cell.avatarLabel.text = person.name.getFirstSumbols()
         return cell
     }
 }

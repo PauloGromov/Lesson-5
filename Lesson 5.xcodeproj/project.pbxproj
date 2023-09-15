@@ -13,9 +13,10 @@
 		488BD5322A77C96600796E7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 488BD5312A77C96600796E7B /* Assets.xcassets */; };
 		488BD5412A77CDA200796E7B /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488BD5402A77CDA200796E7B /* SecondViewController.swift */; };
 		488BD5442A77FE7E00796E7B /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488BD5432A77FE7E00796E7B /* ThirdViewController.swift */; };
-		48CBCAC52A8BEA0100C012C6 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CBCAC42A8BEA0100C012C6 /* CustomCell.swift */; };
+		48CBCAC52A8BEA0100C012C6 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CBCAC42A8BEA0100C012C6 /* CustomTableViewCell.swift */; };
 		48CBCAC82A8CC51400C012C6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 48CBCAC72A8CC51400C012C6 /* SnapKit */; };
 		48CBCACB2A8CEB4200C012C6 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CBCACA2A8CEB4200C012C6 /* Person.swift */; };
+		7FAEB14D2AB46C360008B068 /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FAEB14C2AB46C360008B068 /* String + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +28,9 @@
 		488BD5362A77C96600796E7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		488BD5402A77CDA200796E7B /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		488BD5432A77FE7E00796E7B /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
-		48CBCAC42A8BEA0100C012C6 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		48CBCAC42A8BEA0100C012C6 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		48CBCACA2A8CEB4200C012C6 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		7FAEB14C2AB46C360008B068 /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,11 +64,13 @@
 		488BD5272A77C96400796E7B /* Lesson 5 */ = {
 			isa = PBXGroup;
 			children = (
+				7FAEB14E2AB46F280008B068 /* Extensions */,
+				488BD53C2A77C9CD00796E7B /* App */,
 				48CBCAC92A8CEB3100C012C6 /* Model */,
 				488BD53E2A77CA7900796E7B /* Auth */,
 				488BD53F2A77CD7400796E7B /* SecondScene */,
 				488BD5422A77FE3000796E7B /* ThirdScene */,
-				488BD53C2A77C9CD00796E7B /* App */,
+				7FAEB1482AB461A40008B068 /* Views */,
 				488BD53D2A77CA1500796E7B /* Resources */,
 			);
 			path = "Lesson 5";
@@ -118,9 +122,32 @@
 			isa = PBXGroup;
 			children = (
 				48CBCACA2A8CEB4200C012C6 /* Person.swift */,
-				48CBCAC42A8BEA0100C012C6 /* CustomCell.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7FAEB1482AB461A40008B068 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7FAEB1492AB461BE0008B068 /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7FAEB1492AB461BE0008B068 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				48CBCAC42A8BEA0100C012C6 /* CustomTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		7FAEB14E2AB46F280008B068 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7FAEB14C2AB46C360008B068 /* String + Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,10 +227,11 @@
 			files = (
 				488BD5412A77CDA200796E7B /* SecondViewController.swift in Sources */,
 				488BD52D2A77C96400796E7B /* FirstViewController.swift in Sources */,
+				7FAEB14D2AB46C360008B068 /* String + Extension.swift in Sources */,
 				488BD5442A77FE7E00796E7B /* ThirdViewController.swift in Sources */,
 				488BD5292A77C96400796E7B /* AppDelegate.swift in Sources */,
 				48CBCACB2A8CEB4200C012C6 /* Person.swift in Sources */,
-				48CBCAC52A8BEA0100C012C6 /* CustomCell.swift in Sources */,
+				48CBCAC52A8BEA0100C012C6 /* CustomTableViewCell.swift in Sources */,
 				488BD52B2A77C96400796E7B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
