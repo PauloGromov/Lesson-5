@@ -21,6 +21,16 @@ final class SecondViewController: UIViewController, PersonDelegate {
         tableView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let loadedPeople = UserDefaultsManager.shared.loadPeopleFromUserDefaults() {
+            personArray = loadedPeople
+            tableView.reloadData()
+        }
+
+    }
+    
     // MARK: - Actions
     
     @objc func add(sender: UIBarButtonItem) {
@@ -87,8 +97,8 @@ extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             personArray.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
             UserDefaultsManager.shared.savePeopleToUserDefaults(people: personArray)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     

@@ -184,7 +184,7 @@ import UIKit
         
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(person) {
-            UserDefaults.standard.set(encoded, forKey: "personKey")
+            UserDefaults.standard.set(encoded, forKey: "people")
         }
         delegate?.didAddPerson(person)
         
