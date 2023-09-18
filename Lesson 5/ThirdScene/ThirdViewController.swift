@@ -4,22 +4,26 @@
 //  Created by Павел Громов on 31.07.2023.
 import UIKit
 
-final class ThirdViewController: UIViewController {
-    private var labelName = UILabel()
-    private var textFieldName = UITextField()
-    private var labelDate = UILabel()
-    private var textFieldDate = UITextField()
-    private var pickerDate = UIDatePicker()
-    private var labelAge = UILabel()
-    private var textFieldAge = UITextField()
-    private var pickerAge = UIPickerView()
-    private var labelGander = UILabel()
-    private var textFieldGender = UITextField()
-    private var pickerGender = UIPickerView()
+ class ThirdViewController: UIViewController {
+     weak var delegate: PersonDelegate?
+     
+     private var labelName = UILabel()
+     private var labelDate = UILabel()
+     private var labelAge = UILabel()
+     private var labelGander = UILabel()
+     
+     private var textFieldName = UITextField()
+     private var textFieldDate = UITextField()
+     private var textFieldAge = UITextField()
+     private var textFieldGender = UITextField()
+     
+     private var pickerDate = UIDatePicker()
+     private var pickerAge = UIPickerView()
+     private var pickerGender = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        configureUI()
         createBarButtonItems()
         createTextFieldName()
         createLabelName()
@@ -32,14 +36,11 @@ final class ThirdViewController: UIViewController {
         createLabelGender()
         createTextFieldGender()
         genderPicker()
+        
     }
     
     //MARK: - Create View Elements
-    private func configure() {
-        self.title = " 3 VC "
-        view.backgroundColor = .white
-    }
-    
+     
     private func createBarButtonItems() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(sender: )))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButton(sender: )))
@@ -55,10 +56,16 @@ final class ThirdViewController: UIViewController {
     }
     
     private func createTextFieldName() {
-        textFieldName = UITextField(frame: CGRect(x: 30, y: 350, width: 150, height: 30))
+        textFieldName = UITextField()
         textFieldName.placeholder = "Ведите имя"
         textFieldName.delegate = self
         view.addSubview(textFieldName)
+        textFieldName.snp.makeConstraints { make in
+            make.top.equalTo(350)
+            make.left.equalTo(30)
+            make.width.equalTo(150)
+            make.height.equalTo(30)
+        }
     }
     
     fileprivate func createlabelDate() {
@@ -90,6 +97,7 @@ final class ThirdViewController: UIViewController {
         textFieldDate.inputAccessoryView = createToolbar()
         pickerDate.preferredDatePickerStyle = .wheels
         pickerDate.datePickerMode = .date
+        pickerDate.maximumDate = Date()
     }
     
     private func createLabelAge() {
@@ -154,8 +162,8 @@ final class ThirdViewController: UIViewController {
         pickerGender.delegate = self
     }
     
-    //MARK: - Create Actions
-    
+    //MARK: - Actions
+     
     @objc func cancel(sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
@@ -173,6 +181,13 @@ final class ThirdViewController: UIViewController {
         if let onSave = onSave {
             onSave(person)
         }
+        
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(person) {
+            UserDefaults.standard.set(encoded, forKey: "personKey")
+        }
+        delegate?.didAddPerson(person)
+        
         dismiss(animated: true)
     }
     
@@ -195,9 +210,16 @@ final class ThirdViewController: UIViewController {
         self.view.endEditing(true)
     }
     
+     //MARK: - Methods
+     
+     private func configureUI() {
+         title = "Edit"
+         view.backgroundColor = .white
+     }
 }
 
 //MARK: - Extensions
+
 extension ThirdViewController: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

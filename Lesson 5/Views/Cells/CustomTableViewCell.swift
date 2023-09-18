@@ -8,7 +8,7 @@ import SnapKit
 final class CustomTableViewCell: UITableViewCell {
     static let idCustomCell = "idCustomCell"
     
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .white
         label.text = ""
@@ -17,7 +17,8 @@ final class CustomTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    let dateLabel: UILabel = {
+    
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .white
         label.text = ""
@@ -26,7 +27,8 @@ final class CustomTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    let avatarLabel: UILabel = {
+    
+    private let avatarLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .systemGreen
         label.textAlignment = .center
@@ -54,6 +56,13 @@ final class CustomTableViewCell: UITableViewCell {
         contentView.addSubview(nameLabel)
         contentView.addSubview(dateLabel)
         contentView.addSubview(avatarLabel)
+        selectionStyle = .none
+    }
+    
+    func configure(with person: Person) {
+        nameLabel.text = person.name
+        dateLabel.text = person.birthdate
+        avatarLabel.text = person.name.getFirstSumbols()
     }
 }
 

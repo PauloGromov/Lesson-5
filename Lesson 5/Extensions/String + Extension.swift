@@ -11,5 +11,6 @@ extension String {
         self.split(separator: " ")
             .prefix(2)
             .reduce("", {$0 + String($1[$1.startIndex]) })
+            .uppercased()
     }
 }

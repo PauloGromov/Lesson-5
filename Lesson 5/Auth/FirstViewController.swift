@@ -14,7 +14,7 @@ final class FirstViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        configureUI()
         createLabel()
         createLabelEmail()
         createTextFieldEmail()
@@ -90,7 +90,7 @@ final class FirstViewController: UIViewController {
     }
 
 //MARK: -- Methods
-    private func configure() {
+    private func configureUI() {
         view.backgroundColor = .white
     }
     
