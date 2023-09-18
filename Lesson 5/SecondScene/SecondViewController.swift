@@ -20,7 +20,7 @@ final class SecondViewController: UIViewController, PersonDelegate {
         loadData()
         tableView.reloadData()
     }
-
+    
     // MARK: - Actions
     
     @objc func add(sender: UIBarButtonItem) {
@@ -28,6 +28,12 @@ final class SecondViewController: UIViewController, PersonDelegate {
         thirdVC.delegate = self
         let navController = UINavigationController(rootViewController: thirdVC)
         present(navController, animated: true, completion: nil)
+    }
+    
+    @objc func deleteButtonTapped(_ sender: UIButton) {
+        let indexToDelete = sender.tag
+        let indexPath = IndexPath(row: indexToDelete, section: 0)
+        tableView(tableView, commit: .delete, forRowAt: indexPath)
     }
     
     // MARK: - Methods
@@ -78,11 +84,25 @@ extension SecondViewController: UITableViewDelegate, UITableViewDataSource {
         return personArray.count
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            personArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            UserDefaultsManager.shared.savePeopleToUserDefaults(people: personArray)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.idCustomCell, for: indexPath) as? CustomTableViewCell else { return UITableViewCell() }
         
         let person = personArray[indexPath.row]
         cell.configure(with: person)
+        
+        let deleteButton = UIButton(type: .system)
+        deleteButton.setTitle("Delete", for: .normal)
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        deleteButton.tag = indexPath.row
+        cell.accessoryView = deleteButton
         
         return cell
     }

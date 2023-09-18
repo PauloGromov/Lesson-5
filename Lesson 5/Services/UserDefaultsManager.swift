@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class UserDefaultsManager {
+class UserDefaultsManager {
     
     static let shared = UserDefaultsManager()
     
@@ -30,5 +30,23 @@ final class UserDefaultsManager {
         }
         return nil
     }
+    
+    func savePeopleToUserDefaults(people: [Person]) {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(people) {
+            userDefaults.set(encoded, forKey: personKey)
+        }
+    }
+    
+    func loadPeopleFromUserDefaults() -> [Person]? {
+        if let savedPeopleData = userDefaults.data(forKey: personKey) {
+            let decoder = JSONDecoder()
+            if let loadedPeople = try? decoder.decode([Person].self, from: savedPeopleData) {
+                return loadedPeople
+            }
+        }
+        return nil
+    }
+    
 }
 
